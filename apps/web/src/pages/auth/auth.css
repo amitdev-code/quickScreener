@@ -1,0 +1,326 @@
+/* ── Layout ──────────────────────────────────────────────── */
+.auth-shell {
+  display: flex;
+  height: 100vh;            /* lock to viewport — no page-level scroll */
+  background: #f3f3f3;
+  overflow: hidden;
+}
+
+/* ── Left panel (form) ───────────────────────────────────── */
+.auth-left {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 2.5rem 3rem;
+  overflow-y: auto;         /* scroll only when content overflows */
+}
+
+.auth-box {
+  width: 100%;
+  max-width: 560px;
+}
+
+/* ── Headings ────────────────────────────────────────────── */
+.auth-title {
+  font-size: 2.4rem;
+  font-weight: 700;
+  letter-spacing: -0.5px;
+  color: #111;
+  margin-bottom: 0.4rem;
+}
+
+.auth-subtitle {
+  font-size: 0.95rem;
+  color: #888;
+  margin-bottom: 1.75rem;
+}
+
+/* ── Form fields ─────────────────────────────────────────── */
+.field {
+  margin-bottom: 1rem;
+}
+
+.field label {
+  display: block;
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: #333;
+  margin-bottom: 0.4rem;
+}
+
+.field input {
+  width: 100%;
+  padding: 0.75rem 1rem;
+  background: #ebebeb;
+  border: 2px solid transparent;
+  border-radius: 10px;
+  font-size: 0.95rem;
+  color: #111;
+  outline: none;
+  transition: border-color 0.15s, background 0.15s;
+}
+
+.field input::placeholder { color: #aaa; }
+
+.field input:focus {
+  background: #fff;
+  border-color: #1a1a1a;
+}
+
+.field input.error-input {
+  border-color: #e53e3e;
+  background: #fff5f5;
+}
+
+.field-error {
+  font-size: 0.78rem;
+  color: #e53e3e;
+  margin-top: 0.28rem;
+}
+
+.field-hint {
+  font-size: 0.78rem;
+  color: #999;
+  margin-top: 0.28rem;
+}
+
+/* ── Workspace prefix input ──────────────────────────────── */
+.workspace-wrap {
+  display: flex;
+  align-items: center;
+  background: #ebebeb;
+  border: 2px solid transparent;
+  border-radius: 10px;
+  overflow: hidden;
+  transition: border-color 0.15s, background 0.15s;
+}
+
+.workspace-wrap:focus-within {
+  background: #fff;
+  border-color: #1a1a1a;
+}
+
+.workspace-wrap.error-input {
+  border-color: #e53e3e;
+  background: #fff5f5;
+}
+
+.workspace-prefix {
+  padding: 0.75rem 0 0.75rem 1rem;
+  font-size: 0.95rem;
+  color: #aaa;
+  white-space: nowrap;
+  user-select: none;
+}
+
+.workspace-wrap input {
+  flex: 1;
+  padding: 0.75rem 1rem 0.75rem 0.2rem;
+  background: transparent;
+  border: none;
+  font-size: 0.95rem;
+  color: #111;
+  outline: none;
+}
+
+.workspace-wrap input::placeholder { color: #aaa; }
+
+/* ── Remember me ─────────────────────────────────────────── */
+.remember-row {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-bottom: 1.25rem;
+}
+
+.remember-row input[type="checkbox"] {
+  width: 16px;
+  height: 16px;
+  border-radius: 4px;
+  accent-color: #1a1a1a;
+  cursor: pointer;
+  flex-shrink: 0;
+}
+
+.remember-row label {
+  font-size: 0.875rem;
+  color: #555;
+  cursor: pointer;
+}
+
+/* ── Buttons ─────────────────────────────────────────────── */
+.btn-primary {
+  width: 100%;
+  padding: 0.85rem;
+  background: #1a1a1a;
+  color: #fff;
+  border: none;
+  border-radius: 10px;
+  font-size: 0.95rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.15s, opacity 0.15s;
+  letter-spacing: 0.2px;
+  margin-top: 0.25rem;
+}
+
+.btn-primary:hover:not(:disabled) { background: #333; }
+.btn-primary:disabled { opacity: 0.55; cursor: not-allowed; }
+
+/* ── Bottom link ─────────────────────────────────────────── */
+.auth-footer {
+  text-align: center;
+  margin-top: 1.25rem;
+  font-size: 0.875rem;
+  color: #888;
+}
+
+.auth-footer a {
+  color: #111;
+  font-weight: 700;
+  text-decoration: none;
+}
+
+.auth-footer a:hover { text-decoration: underline; }
+
+/* ── Global error banner ─────────────────────────────────── */
+.auth-error-banner {
+  background: #fff5f5;
+  border: 1px solid #feb2b2;
+  border-radius: 8px;
+  padding: 0.65rem 1rem;
+  font-size: 0.85rem;
+  color: #c53030;
+  margin-bottom: 1.1rem;
+}
+
+/* ── Right panel (branding) — sticky so it stays put while form scrolls ── */
+.auth-right {
+  flex: 0 0 38%;
+  position: sticky;
+  top: 0;
+  align-self: flex-start;
+  height: calc(100vh - 32px);
+  margin: 16px 16px 16px 0;
+  border-radius: 24px;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  padding: 2.5rem;
+
+  background: #0d0221;
+}
+
+/* photo fills the panel */
+.auth-right::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: url("/images/AuthScreen.webp") center / cover no-repeat;
+  z-index: 0;
+}
+
+/* dark gradient overlay so tagline stays readable */
+.auth-right::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    to top,
+    rgba(10, 5, 30, 0.82) 0%,
+    rgba(10, 5, 30, 0.35) 45%,
+    rgba(10, 5, 30, 0.10) 100%
+  );
+  z-index: 1;
+  pointer-events: none;
+}
+
+.auth-logo {
+  position: absolute;
+  top: 1.5rem;
+  right: 1.5rem;
+  width: 44px;
+  height: 44px;
+  background: #1a1a1a;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1rem;
+  font-weight: 800;
+  color: #fff;
+  letter-spacing: -1px;
+  z-index: 2;
+}
+
+.auth-tagline {
+  position: relative;
+  z-index: 2;
+  color: rgba(255, 255, 255, 0.80);
+  font-size: 1.75rem;
+  font-weight: 300;
+  line-height: 1.25;
+}
+
+.auth-tagline strong {
+  color: #fff;
+  font-weight: 800;
+  display: block;
+}
+
+/* ── Password toggle ─────────────────────────────────────── */
+.password-wrap {
+  position: relative;
+}
+
+.password-wrap input {
+  padding-right: 2.8rem;
+}
+
+.password-toggle {
+  position: absolute;
+  right: 0.9rem;
+  top: 50%;
+  transform: translateY(-50%);
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: #999;
+  padding: 0;
+  display: flex;
+  align-items: center;
+}
+
+.password-toggle:hover { color: #555; }
+
+/* ── Inline two-column row (full name + email on wide screens) ── */
+.field-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.85rem;
+}
+
+/* ── Responsive — tablet ─────────────────────────────────── */
+@media (max-width: 1024px) {
+  .auth-left { padding: 2rem 2rem; }
+  .auth-box  { max-width: 480px; }
+}
+
+/* ── Responsive — mobile ─────────────────────────────────── */
+@media (max-width: 768px) {
+  .auth-shell    { flex-direction: column; height: auto; overflow: visible; }
+  .auth-right    { display: none; }
+  .auth-left     { padding: 2.5rem 1.25rem; overflow-y: visible; justify-content: flex-start; }
+  .auth-box      { max-width: 100%; }
+  .auth-title    { font-size: 2rem; }
+  .field-row     { grid-template-columns: 1fr; gap: 0; }
+}
+
+/* ── Responsive — small mobile ───────────────────────────── */
+@media (max-width: 380px) {
+  .auth-left  { padding: 2rem 1rem; }
+  .auth-title { font-size: 1.75rem; }
+}

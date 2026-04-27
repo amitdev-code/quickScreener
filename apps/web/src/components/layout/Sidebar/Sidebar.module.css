@@ -1,0 +1,157 @@
+.sidebar {
+  width: var(--sidebar-width);
+  min-width: var(--sidebar-width);
+  height: 100vh;
+  background-color: var(--sidebar-bg);
+  display: flex;
+  flex-direction: column;
+  padding: var(--space-6) 0 var(--space-5);
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 100;
+  overflow: hidden;
+}
+
+/* dot-grid texture — visible in lower half of sidebar */
+.sidebar::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image: radial-gradient(circle, rgba(255, 255, 255, 0.09) 1.5px, transparent 1.5px);
+  background-size: 22px 22px;
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* keep all content above the pseudo-element */
+.logo,
+.nav,
+.footer {
+  position: relative;
+  z-index: 1;
+}
+
+/* ── Logo ────────────────────────────────────────── */
+.logo {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  padding: 0 var(--space-5);
+  margin-bottom: var(--space-8);
+}
+
+.logoIcon {
+  width: 38px;
+  height: 38px;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.logoIcon img {
+  width: 38px;
+  height: 38px;
+  border-radius: var(--radius-md);
+  display: block;
+}
+
+.logoText {
+  font-size: var(--font-size-md);
+  font-weight: var(--font-weight-bold);
+  color: var(--sidebar-text-active);
+  letter-spacing: -0.3px;
+}
+
+/* ── Navigation ─────────────────────────────────── */
+.nav {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+
+.nav::-webkit-scrollbar { width: 0; }
+
+.section {
+  margin-bottom: var(--space-3);
+}
+
+.sectionLabel {
+  font-size: var(--font-size-xs);
+  font-weight: var(--font-weight-semibold);
+  color: var(--sidebar-section-label);
+  text-transform: uppercase;
+  letter-spacing: 0.9px;
+  padding: var(--space-3) var(--space-5) var(--space-2);
+  display: block;
+}
+
+.navItem {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  padding: 10px var(--space-4);
+  margin: 1px var(--space-3);
+  border-radius: var(--radius-full);
+  cursor: pointer;
+  text-decoration: none;
+  color: var(--sidebar-text-muted);
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-medium);
+  transition: background 0.15s ease, color 0.15s ease;
+}
+
+.navItem:hover {
+  background: var(--sidebar-hover-bg);
+  color: var(--sidebar-text);
+}
+
+.navItem.active {
+  background: var(--sidebar-active-bg);
+  color: var(--sidebar-text-active);
+}
+
+.navIcon {
+  width: 18px;
+  height: 18px;
+  flex-shrink: 0;
+  opacity: 0.75;
+}
+
+.navItem.active .navIcon {
+  opacity: 1;
+}
+
+/* ── Footer (Log Out) ────────────────────────────── */
+.footer {
+  padding: var(--space-3) var(--space-3) 0;
+}
+
+.logoutBtn {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  padding: 10px var(--space-4);
+  border-radius: var(--radius-full);
+  cursor: pointer;
+  color: var(--sidebar-text-muted);
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-medium);
+  background: none;
+  border: none;
+  width: 100%;
+  text-align: left;
+  transition: background 0.15s ease, color 0.15s ease;
+}
+
+.logoutBtn:hover {
+  background: rgba(239, 68, 68, 0.12);
+  color: #f87171;
+}
+
+.logoutBtn:hover .navIcon {
+  opacity: 1;
+}

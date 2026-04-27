@@ -1,0 +1,18 @@
+{
+  "name": "aiscreener",
+  "private": true,
+  "devDependencies": {
+    "concurrently": "^9.0.0"
+  },
+  "scripts": {
+    "dev": "concurrently --names \"api,web\" --prefix-colors \"blue,green\" \"bash -c 'cd apps/api && source .venv/bin/activate && uvicorn main:socket_app --host 0.0.0.0 --port 8000 --reload'\" \"pnpm --filter '@aiscreener/web' dev\"",
+    "dev:all": "concurrently --names \"api,web,candidate\" --prefix-colors \"blue,green,yellow\" \"bash -c 'cd apps/api && source .venv/bin/activate && uvicorn main:socket_app --host 0.0.0.0 --port 8000 --reload'\" \"pnpm --filter '@aiscreener/web' dev\" \"pnpm --filter '@aiscreener/candidate' dev\"",
+    "build": "pnpm --filter './packages/*' build && pnpm --filter './apps/*' build",
+    "typecheck": "pnpm --recursive typecheck",
+    "lint": "pnpm --recursive lint"
+  },
+  "engines": {
+    "node": ">=20",
+    "pnpm": ">=9"
+  }
+}

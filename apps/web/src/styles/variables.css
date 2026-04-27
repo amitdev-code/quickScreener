@@ -1,0 +1,57 @@
+:root {
+  /* ── Sidebar ─────────────────────────────────────── */
+  --sidebar-bg: #111827;
+  --sidebar-width: 240px;
+  --sidebar-text-muted: #9ca3af;
+  --sidebar-text: #d1d5db;
+  --sidebar-text-active: #ffffff;
+  --sidebar-active-bg: #7c3aed;
+  --sidebar-hover-bg: rgba(255, 255, 255, 0.06);
+  --sidebar-section-label: #6b7280;
+
+  /* ── TopBar ──────────────────────────────────────── */
+  --topbar-height: 64px;
+  --topbar-bg: #ffffff;
+  --topbar-border: #e5e7eb;
+
+  /* ── Brand / Accent ──────────────────────────────── */
+  --color-primary: #7c3aed;
+  --color-primary-hover: #6d28d9;
+  --color-primary-light: #ede9fe;
+
+  /* ── Neutral ─────────────────────────────────────── */
+  --color-bg: #f3f4f6;
+  --color-surface: #ffffff;
+  --color-border: #e5e7eb;
+  --color-text: #111827;
+  --color-text-muted: #6b7280;
+
+  /* ── Radius / Shadow ─────────────────────────────── */
+  --radius-sm: 6px;
+  --radius-md: 10px;
+  --radius-lg: 14px;
+  --radius-full: 9999px;
+  --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.08);
+  --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.1);
+
+  /* ── Typography ──────────────────────────────────── */
+  --font-size-xs: 11px;
+  --font-size-sm: 13px;
+  --font-size-base: 14px;
+  --font-size-md: 15px;
+  --font-size-lg: 18px;
+  --font-size-xl: 22px;
+  --font-weight-normal: 400;
+  --font-weight-medium: 500;
+  --font-weight-semibold: 600;
+  --font-weight-bold: 700;
+
+  /* ── Spacing ─────────────────────────────────────── */
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-5: 20px;
+  --space-6: 24px;
+  --space-8: 32px;
+}

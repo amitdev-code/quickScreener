@@ -1,0 +1,42 @@
+# Virtual environment
+.venv/
+venv/
+env/
+
+# Python cache
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+
+# Distribution / packaging
+*.egg-info/
+.eggs/
+dist/
+build/
+*.dist-info/
+
+# Test & coverage
+.coverage
+htmlcov/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+
+# Alembic
+alembic/versions/__pycache__/
+
+# SQLite (dev artifacts)
+*.db
+*.sqlite3
+
+# uv
+.python-version
+
+# Secrets / env
+.env
+.env.*
+!.env.example
+
+# Logs
+*.log
