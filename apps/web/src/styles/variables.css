@@ -2,6 +2,7 @@
   /* ── Sidebar ─────────────────────────────────────── */
   --sidebar-bg: #111827;
   --sidebar-width: 240px;
+  --sidebar-collapsed-width: 68px;
   --sidebar-text-muted: #9ca3af;
   --sidebar-text: #d1d5db;
   --sidebar-text-active: #ffffff;

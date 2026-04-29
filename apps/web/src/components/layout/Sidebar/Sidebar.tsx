@@ -1,6 +1,7 @@
 import React from "react";
 import { NavLink, useNavigate } from "react-router-dom";
 import { useAuthStore } from "../../../features/auth/auth.store";
+import { useLayoutStore } from "../layout.store";
 import styles from "./Sidebar.module.css";
 
 interface NavItem {
@@ -78,6 +79,8 @@ const GENERAL_NAV: NavItem[] = [
 export default function Sidebar(): React.ReactElement {
   const logout = useAuthStore((s) => s.clearAuth);
   const navigate = useNavigate();
+  const collapsed = useLayoutStore((s) => s.sidebarCollapsed);
+  const toggleSidebar = useLayoutStore((s) => s.toggleSidebar);
 
   function handleLogout() {
     logout();
@@ -88,8 +91,19 @@ export default function Sidebar(): React.ReactElement {
     return `${styles.navItem}${isActive ? ` ${styles.active}` : ""}`;
   }
 
+  const sidebarClass = `${styles.sidebar}${collapsed ? ` ${styles.collapsed}` : ""}`;
+
   return (
-    <aside className={styles.sidebar}>
+    <aside className={sidebarClass}>
+      {/* Collapse toggle */}
+      <button className={styles.toggleBtn} onClick={toggleSidebar} type="button" aria-label="Toggle sidebar">
+        <span className={styles.toggleIcon}>
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+            <path d="M15 18l-6-6 6-6" />
+          </svg>
+        </span>
+      </button>
+
       {/* Logo */}
       <div className={styles.logo}>
         <div className={styles.logoIcon}>
@@ -103,9 +117,16 @@ export default function Sidebar(): React.ReactElement {
         <div className={styles.section}>
           <span className={styles.sectionLabel}>Main Menu</span>
           {MAIN_NAV.map((item) => (
-            <NavLink key={item.to} to={item.to} className={navClass} end={item.to === "/dashboard"}>
+            <NavLink
+              key={item.to}
+              to={item.to}
+              className={navClass}
+              end={item.to === "/dashboard"}
+              data-label={item.label}
+              title={collapsed ? item.label : undefined}
+            >
               {item.icon}
-              {item.label}
+              <span className={styles.navLabel}>{item.label}</span>
             </NavLink>
           ))}
         </div>
@@ -113,9 +134,15 @@ export default function Sidebar(): React.ReactElement {
         <div className={styles.section}>
           <span className={styles.sectionLabel}>General</span>
           {GENERAL_NAV.map((item) => (
-            <NavLink key={item.to} to={item.to} className={navClass}>
+            <NavLink
+              key={item.to}
+              to={item.to}
+              className={navClass}
+              data-label={item.label}
+              title={collapsed ? item.label : undefined}
+            >
               {item.icon}
-              {item.label}
+              <span className={styles.navLabel}>{item.label}</span>
             </NavLink>
           ))}
         </div>
@@ -129,7 +156,7 @@ export default function Sidebar(): React.ReactElement {
             <polyline points="16 17 21 12 16 7" />
             <line x1="21" y1="12" x2="9" y2="12" />
           </svg>
-          Log Out
+          <span className={styles.navLabel}>Log Out</span>
         </button>
       </footer>
     </aside>

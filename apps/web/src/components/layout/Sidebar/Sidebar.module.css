@@ -10,10 +10,15 @@
   top: 0;
   left: 0;
   z-index: 100;
-  overflow: hidden;
+  transition: width 0.25s ease, min-width 0.25s ease;
 }
 
-/* dot-grid texture — visible in lower half of sidebar */
+.sidebar.collapsed {
+  width: var(--sidebar-collapsed-width);
+  min-width: var(--sidebar-collapsed-width);
+}
+
+/* dot-grid texture */
 .sidebar::before {
   content: "";
   position: absolute;
@@ -24,7 +29,6 @@
   z-index: 0;
 }
 
-/* keep all content above the pseudo-element */
 .logo,
 .nav,
 .footer {
@@ -32,13 +36,54 @@
   z-index: 1;
 }
 
+/* ── Toggle button ───────────────────────────────── */
+.toggleBtn {
+  position: absolute;
+  top: 22px;
+  right: -12px;
+  width: 24px;
+  height: 24px;
+  background: var(--color-primary);
+  border: none;
+  border-radius: var(--radius-full);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  z-index: 110; /* above sidebar (100) and topbar (99) */
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+  transition: background 0.15s ease;
+  flex-shrink: 0;
+}
+
+.toggleBtn:hover {
+  background: var(--color-primary-hover);
+}
+
+.toggleIcon {
+  transition: transform 0.25s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.sidebar.collapsed .toggleIcon {
+  transform: rotate(180deg);
+}
+
 /* ── Logo ────────────────────────────────────────── */
 .logo {
   display: flex;
   align-items: center;
   gap: var(--space-3);
-  padding: 0 var(--space-5);
+  padding: 0 var(--space-4);
   margin-bottom: var(--space-8);
+  overflow: hidden; /* clips brand name during collapse transition */
+}
+
+.sidebar.collapsed .logo {
+  justify-content: center;
+  padding: 0;
 }
 
 .logoIcon {
@@ -62,6 +107,16 @@
   font-weight: var(--font-weight-bold);
   color: var(--sidebar-text-active);
   letter-spacing: -0.3px;
+  white-space: nowrap;
+  opacity: 1;
+  max-width: 160px;
+  transition: opacity 0.15s ease, max-width 0.25s ease;
+  overflow: hidden;
+}
+
+.sidebar.collapsed .logoText {
+  opacity: 0;
+  max-width: 0;
 }
 
 /* ── Navigation ─────────────────────────────────── */
@@ -70,7 +125,7 @@
   display: flex;
   flex-direction: column;
   overflow-y: auto;
-  overflow-x: hidden;
+  overflow-x: hidden; /* clips label text during collapse transition */
 }
 
 .nav::-webkit-scrollbar { width: 0; }
@@ -87,6 +142,18 @@
   letter-spacing: 0.9px;
   padding: var(--space-3) var(--space-5) var(--space-2);
   display: block;
+  white-space: nowrap;
+  opacity: 1;
+  max-height: 32px;
+  overflow: hidden;
+  transition: opacity 0.15s ease, max-height 0.25s ease, padding 0.25s ease;
+}
+
+.sidebar.collapsed .sectionLabel {
+  opacity: 0;
+  max-height: 0;
+  padding-top: 0;
+  padding-bottom: 0;
 }
 
 .navItem {
@@ -101,7 +168,15 @@
   color: var(--sidebar-text-muted);
   font-size: var(--font-size-sm);
   font-weight: var(--font-weight-medium);
-  transition: background 0.15s ease, color 0.15s ease;
+  transition: background 0.15s ease, color 0.15s ease, padding 0.25s ease, justify-content 0.25s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.sidebar.collapsed .navItem {
+  justify-content: center;
+  padding: 10px 0;
+  margin: 1px var(--space-2);
 }
 
 .navItem:hover {
@@ -125,6 +200,42 @@
   opacity: 1;
 }
 
+.navLabel {
+  white-space: nowrap;
+  opacity: 1;
+  max-width: 160px;
+  overflow: hidden;
+  transition: opacity 0.15s ease, max-width 0.25s ease;
+}
+
+.sidebar.collapsed .navLabel {
+  opacity: 0;
+  max-width: 0;
+}
+
+/* ── Tooltip on collapsed hover ──────────────────── */
+.sidebar.collapsed .navItem {
+  position: relative;
+}
+
+.sidebar.collapsed .navItem:hover::after {
+  content: attr(data-label);
+  position: absolute;
+  left: calc(var(--sidebar-collapsed-width) - 8px);
+  top: 50%;
+  transform: translateY(-50%);
+  background: #1f2937;
+  color: #fff;
+  font-size: var(--font-size-xs);
+  font-weight: var(--font-weight-medium);
+  padding: 5px 10px;
+  border-radius: var(--radius-sm);
+  white-space: nowrap;
+  pointer-events: none;
+  z-index: 300;
+  box-shadow: var(--shadow-md);
+}
+
 /* ── Footer (Log Out) ────────────────────────────── */
 .footer {
   padding: var(--space-3) var(--space-3) 0;
@@ -144,7 +255,13 @@
   border: none;
   width: 100%;
   text-align: left;
-  transition: background 0.15s ease, color 0.15s ease;
+  overflow: hidden;
+  transition: background 0.15s ease, color 0.15s ease, padding 0.25s ease;
+}
+
+.sidebar.collapsed .logoutBtn {
+  justify-content: center;
+  padding: 10px 0;
 }
 
 .logoutBtn:hover {

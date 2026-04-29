@@ -8,13 +8,16 @@ export default function TopBar(): React.ReactElement {
   const navigate = useNavigate();
   const user = useAuthStore((s) => s.user);
   const { title, subtitle } = useLayoutStore();
+  const collapsed = useLayoutStore((s) => s.sidebarCollapsed);
 
   const initials = user?.full_name
     ? user.full_name.split(" ").map((n) => n[0]).join("").slice(0, 2).toUpperCase()
     : "U";
 
+  const topbarClass = `${styles.topbar}${collapsed ? ` ${styles.collapsed}` : ""}`;
+
   return (
-    <header className={styles.topbar}>
+    <header className={topbarClass}>
       {/* Left */}
       <div className={styles.left}>
         <button className={styles.backBtn} onClick={() => navigate(-1)} type="button" aria-label="Go back">

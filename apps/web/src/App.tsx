@@ -7,8 +7,13 @@ import LoginPage from "./pages/auth/LoginPage";
 import RegisterPage from "./pages/auth/RegisterPage";
 import VerifyEmailPage from "./pages/auth/VerifyEmailPage";
 import DashboardPage from "./pages/dashboard/DashboardPage";
+import { useAuthInit } from "./features/auth/hooks/use-auth-init";
+import { useTokenRefresh } from "./features/auth/hooks/use-token-refresh";
 
 export default function App(): React.ReactElement {
+  useAuthInit();
+  useTokenRefresh();
+
   return (
     <BrowserRouter>
       <Routes>

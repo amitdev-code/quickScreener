@@ -11,6 +11,11 @@
   min-height: 100vh;
   display: flex;
   flex-direction: column;
+  transition: margin-left 0.25s ease;
+}
+
+.main.collapsed {
+  margin-left: var(--sidebar-collapsed-width);
 }
 
 .content {

@@ -11,6 +11,11 @@
   left: var(--sidebar-width);
   right: 0;
   z-index: 99;
+  transition: left 0.25s ease;
+}
+
+.topbar.collapsed {
+  left: var(--sidebar-collapsed-width);
 }
 
 /* ── Left: title area ────────────────────────────── */

@@ -17,16 +17,19 @@ const ROUTE_TITLES: Record<string, string> = {
 export default function AppLayout(): React.ReactElement {
   const location = useLocation();
   const setPageHeader = useLayoutStore((s) => s.setPageHeader);
+  const collapsed = useLayoutStore((s) => s.sidebarCollapsed);
 
   useEffect(() => {
     const title = ROUTE_TITLES[location.pathname] ?? "Dashboard";
     setPageHeader(title, undefined);
   }, [location.pathname, setPageHeader]);
 
+  const mainClass = `${styles.main}${collapsed ? ` ${styles.collapsed}` : ""}`;
+
   return (
     <div className={styles.shell}>
       <Sidebar />
-      <div className={styles.main}>
+      <div className={mainClass}>
         <TopBar />
         <main className={styles.content}>
           <Outlet />

@@ -1,10 +1,10 @@
 import type { AxiosInstance } from "axios";
 import type { AuthStore } from "../../features/auth/auth.store";
-import { getRefreshToken } from "./token-storage";
+import { getAccessToken, getRefreshToken } from "./token-storage";
 
 export function setupAuthInterceptors(
   axiosInstance: AxiosInstance,
-  authStore: AuthStore,
+  getStore: () => AuthStore,
 ): void {
   let isRefreshing = false;
   let waitQueue: Array<(token: string) => void> = [];
@@ -27,15 +27,16 @@ export function setupAuthInterceptors(
       original._retry = true;
       isRefreshing = true;
       try {
-        await authStore.refreshToken();
-        const newToken = authStore.accessToken!;
+        await getStore().refreshToken();
+        // Read from token-storage, not from a stale store snapshot.
+        const newToken = getAccessToken()!;
         waitQueue.forEach((cb) => cb(newToken));
         waitQueue = [];
         original.headers.Authorization = `Bearer ${newToken}`;
         return axiosInstance(original);
       } catch {
         waitQueue = [];
-        authStore.clearAuth();
+        getStore().clearAuth();
         window.location.href = "/login";
         return Promise.reject(error);
       } finally {
